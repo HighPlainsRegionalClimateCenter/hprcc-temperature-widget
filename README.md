@@ -1,1 +1,0 @@
-### HPRCC Temperature Widget
