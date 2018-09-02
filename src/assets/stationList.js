@@ -1,290 +1,235 @@
 export const stations = [
   {
-    name: "Washington National",
-    state: "DC",
-    sid: "dcathr",
-    lon: -77.03454,
-    lat: 38.8472,
-    type: "green"
+    state: "Colorado",
+    sid: "ALSthr",
+    name: "Alamosa",
+    lat: 37.4389,
+    lon: -105.8613
   },
   {
-    name: "NYC-Central Park",
-    state: "NY",
-    sid: "nycthr",
-    lon: -73.96917,
-    lat: 40.77889,
-    type: "green"
+    state: "Colorado",
+    sid: "COSthr",
+    name: "Colorado Springs",
+    lat: 38.81,
+    lon: -104.6884
   },
   {
-    name: "LaGuardia Airport",
-    state: "NY",
-    sid: "lgathr",
-    lon: -73.874,
-    lat: 40.7769,
-    type: "green"
+    state: "Colorado",
+    sid: "DENthr",
+    name: "Denver",
+    lat: 39.8328,
+    lon: -104.6575
   },
   {
-    name: "Kennedy Airport",
-    state: "NY",
-    sid: "jfkthr",
-    lon: -73.7622,
-    lat: 40.6386,
-    type: "green"
+    state: "Colorado",
+    sid: "GJTthr",
+    name: "Grand Junction",
+    lat: 39.1342,
+    lon: -108.54
   },
   {
-    name: "Newark",
-    state: "NJ",
-    sid: "ewrthr",
-    lon: -74.16944,
-    lat: 40.6825,
-    type: "blue"
+    state: "Colorado",
+    sid: "PUBthr",
+    name: "Pueblo",
+    lat: 38.2901,
+    lon: -104.4983
+  },
+
+  {
+    state: "Kansas",
+    sid: "CNKthr",
+    name: "Concordia",
+    lat: 39.5514,
+    lon: -97.6508
   },
   {
-    name: "Philadelphia",
-    state: "PA",
-    sid: "phlthr",
-    lon: -75.02,
-    lat: 40.08,
-    type: "blue"
+    state: "Kansas",
+    sid: "DDCthr",
+    name: "Dodge City",
+    lat: 37.7686,
+    lon: -99.9678
   },
   {
-    name: "Boston Logan",
-    state: "MA",
-    sid: "bosthr",
-    lon: -71.01056,
-    lat: 42.36056,
-    type: "blue"
+    state: "Kansas",
+    sid: "GLDthr",
+    name: "Goodland",
+    lat: 39.3672,
+    lon: -101.6933
   },
   {
-    name: "Wilmington",
-    state: "DE",
-    sid: "ilg_thr",
-    lon: -75.60567,
-    lat: 39.6744,
-    type: "blue"
+    state: "Kansas",
+    sid: "TOPthr",
+    name: "Topeka",
+    lat: 39.0725,
+    lon: -95.6261
   },
   {
-    name: "Bridgeport",
-    state: "CT",
-    sid: "bdrthr",
-    lon: -73.12889,
-    lat: 41.15833,
-    type: "blue"
+    state: "Kansas",
+    sid: "ICTthr",
+    name: "Wichita",
+    lat: 37.6475,
+    lon: -97.43
+  },
+  { state: "Kansas", sid: "SLNthr", name: "Salina", lat: 38.8, lon: -97.65 },
+  {
+    state: "Nebraska",
+    sid: "GRIthr",
+    name: "Grand Island",
+    lat: 40.9611,
+    lon: -98.3136
   },
   {
-    name: "Ithaca",
-    state: "NY",
-    sid: "304174",
-    lon: -76.4491,
-    lat: 42.4491,
-    type: "blue"
+    state: "Nebraska",
+    sid: "LNKthr",
+    name: "Lincoln",
+    lat: 40.8508,
+    lon: -96.7475
   },
   {
-    name: "Harrisburg",
-    state: "PA",
-    sid: "mdtthr",
-    lon: -76.85139,
-    lat: 40.21722,
-    type: "blue"
+    state: "Nebraska",
+    sid: "OFKthr",
+    name: "Norfolk",
+    lat: 41.9855,
+    lon: -97.4352
   },
   {
-    name: "Baltimore",
-    state: "MD",
-    sid: "bwithr",
-    lon: -76.684,
-    lat: 39.1733,
-    type: "blue"
+    state: "Nebraska",
+    sid: "LBFthr",
+    name: "North Platte",
+    lat: 41.1213,
+    lon: -100.6694
   },
   {
-    name: "Islip",
-    state: "NY",
-    sid: "ispthr",
-    lon: -73.10167,
-    lat: 40.79389,
-    type: "blue"
+    state: "Nebraska",
+    sid: "OMAthr",
+    name: "Omaha",
+    lat: 41.3102,
+    lon: -95.8991
   },
   {
-    name: "Providence",
-    state: "RI",
-    sid: "pvdthr",
-    lon: -71.43333,
-    lat: 41.71667,
-    type: "blue"
+    state: "Nebraska",
+    sid: "BFFthr",
+    name: "Scottsbluff",
+    lat: 41.8705,
+    lon: -103.593
   },
   {
-    name: "Huntington",
-    state: "WV",
-    sid: "htsthr",
-    lon: -82.555,
-    lat: 38.365,
-    type: "blue"
+    state: "Nebraska",
+    sid: "VTNthr",
+    name: "Valentine",
+    lat: 42.8783,
+    lon: -100.55
   },
   {
-    name: "Washington Dulles",
-    state: "DC",
-    sid: "iadthr",
-    lon: -77.4473,
-    lat: 38.9349,
-    type: "blue"
+    state: "Nebraska",
+    sid: "HSIthr",
+    name: "Hastings",
+    lat: 40.6005,
+    lon: -98.4258
   },
   {
-    name: "Charleston",
-    state: "WV",
-    sid: "crwthr",
-    lon: -81.59,
-    lat: 38.3794,
-    type: "blue"
+    state: "Nebraska",
+    sid: "MCKthr",
+    name: "McCook",
+    lat: 40.2064,
+    lon: -100.5914
   },
   {
-    name: "Worcester",
-    state: "MA",
-    sid: "orhthr",
-    lon: -71.8731,
-    lat: 42.2706,
-    type: "blue"
+    state: "North Dakota",
+    sid: "BISthr",
+    name: "Bismarck",
+    lat: 46.7825,
+    lon: -100.7572
   },
   {
-    name: "Buffalo",
-    state: "NY",
-    sid: "bufthr",
-    lon: -78.7358,
-    lat: 42.9408,
-    type: "blue"
+    state: "North Dakota",
+    sid: "FARthr",
+    name: "Fargo",
+    lat: 46.9253,
+    lon: -96.8111
   },
   {
-    name: "Allentown",
-    state: "PA",
-    sid: "abethr",
-    lon: -75.44771,
-    lat: 40.64985,
-    type: "blue"
+    state: "North Dakota",
+    sid: "GFKthr",
+    name: "Grand Forks",
+    lat: 47.9428,
+    lon: -97.1839
   },
   {
-    name: "Atlantic City",
-    state: "NJ",
-    sid: "acythr",
-    lon: -74.56699,
-    lat: 39.45202,
-    type: "blue"
+    state: "North Dakota",
+    sid: "ISNthr",
+    name: "Williston",
+    lat: 48.1738,
+    lon: -103.6366
   },
   {
-    name: "Scranton",
-    state: "PA",
-    sid: "avpthr",
-    lon: -75.7269,
-    lat: 41.3336,
-    type: "blue"
+    state: "South Dakota",
+    sid: "ABRthr",
+    name: "Aberdeen",
+    lat: 45.4433,
+    lon: -98.413
   },
   {
-    name: "Pittsburgh",
-    state: "PA",
-    sid: "pitthr",
-    lon: -80.2144,
-    lat: 40.4846,
-    type: "blue"
+    state: "South Dakota",
+    sid: "HONthr",
+    name: "Huron",
+    lat: 44.3981,
+    lon: -98.2231
   },
   {
-    name: "Hartford",
-    state: "CT",
-    sid: "bdlthr",
-    lon: -72.6819,
-    lat: 41.9375,
-    type: "blue"
+    state: "South Dakota",
+    sid: "RAPthr",
+    name: "Rapid City",
+    lat: 44.0433,
+    lon: -103.0536
   },
   {
-    name: "Erie",
-    state: "PA",
-    sid: "erithr",
-    lon: -80.1824,
-    lat: 42.0803,
-    type: "blue"
+    state: "South Dakota",
+    sid: "FSDthr",
+    name: "Sioux Falls",
+    lat: 43.5778,
+    lon: -96.7539
   },
   {
-    name: "Rochester",
-    state: "NY",
-    sid: "rocthr",
-    lon: -77.6767,
-    lat: 43.1167,
-    type: "blue"
+    state: "South Dakota",
+    sid: "MHEthr",
+    name: "Mitchell",
+    lat: 43.7743,
+    lon: -98.0384
   },
   {
-    name: "Williamsport",
-    state: "PA",
-    sid: "iptthr",
-    lon: -76.9217,
-    lat: 41.2433,
-    type: "blue"
+    state: "South Dakota",
+    sid: "NRS2thr",
+    name: "Rapid City Downtown",
+    lat: 44.0727,
+    lon: -103.2108
   },
   {
-    name: "Syracuse",
-    state: "NY",
-    sid: "syrthr",
-    lon: -76.1038,
-    lat: 43.1111,
-    type: "blue"
+    state: "Wyoming",
+    sid: "CPRthr",
+    name: "Casper",
+    lat: 42.8978,
+    lon: -106.4737
   },
   {
-    name: "Beckley",
-    state: "WV",
-    sid: "bkwthr",
-    lon: -81.123,
-    lat: 37.7836,
-    type: "blue"
+    state: "Wyoming",
+    sid: "CYSthr",
+    name: "Cheyenne",
+    lat: 41.1578,
+    lon: -104.8069
   },
   {
-    name: "Binghamton",
-    state: "NY",
-    sid: "bgmthr",
-    lon: -75.98,
-    lat: 42.2068,
-    type: "yellow"
+    state: "Wyoming",
+    sid: "LNDthr",
+    name: "Lander",
+    lat: 42.8154,
+    lon: -108.7261
   },
   {
-    name: "Portland",
-    state: "ME",
-    sid: "pwmthr",
-    lon: -70.30444,
-    lat: 43.64222,
-    type: "yellow"
-  },
-  {
-    name: "Albany",
-    state: "NY",
-    sid: "albthr",
-    lon: -73.79912,
-    lat: 42.74722,
-    type: "yellow"
-  },
-  {
-    name: "Burlington",
-    state: "VT",
-    sid: "btvthr",
-    lon: -73.1499,
-    lat: 44.4683,
-    type: "yellow"
-  },
-  {
-    name: "Elkins",
-    state: "WV",
-    sid: "eknthr",
-    lon: -79.8528,
-    lat: 38.8853,
-    type: "yellow"
-  },
-  {
-    name: "Concord",
-    state: "NH",
-    sid: "conthr",
-    lon: -71.50274,
-    lat: 43.2049,
-    type: "yellow"
-  },
-  {
-    name: "Caribou",
-    state: "ME",
-    sid: "carthr",
-    lon: -68.0173,
-    lat: 46.8705,
-    type: "yellow"
+    state: "Wyoming",
+    sid: "SHRthr",
+    name: "Sheridan",
+    lat: 44.7694,
+    lon: -106.9688
   }
 ];
