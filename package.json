@@ -2,7 +2,7 @@
   "name": "hprcc-temperature-widget",
   "version": "0.1.0",
   "author": "alexsinfarosa <as898@cornell.edu>",
-  "homepage": "https://github.com/alexsinfarosa/hprcc-temperature-widget/",
+  "homepage": "https://alexsinfarosa.github.io/hprcc-temperature-widget/",
   "description": "HPRCC Temperature Widget",
   "private": true,
   "dependencies": {
