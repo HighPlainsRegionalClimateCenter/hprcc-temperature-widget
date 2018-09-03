@@ -9,6 +9,7 @@ import withRoot from "../withRoot";
 
 import { stations } from "../assets/stationList";
 
+import { returnBoundingBox } from "../utils/utils";
 // styles
 const styles = theme => ({
   root: {
@@ -44,7 +45,7 @@ class StationsMap extends Component {
     return (
       <div className={classes.root}>
         <Map
-          bounds={[[34, -70], [45, -79]]}
+          bounds={returnBoundingBox(stations)}
           style={{ width: "100%", height: "100%" }}
           zoomControl={false}
         >
