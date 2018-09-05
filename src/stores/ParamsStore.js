@@ -10,7 +10,7 @@ import createHistory from "history/createBrowserHistory";
 const history = createHistory();
 
 export default class ParamsStore {
-  hash = "ALSthr";
+  hash = "LNKthr";
   maxt;
   mint;
   constructor() {
@@ -53,7 +53,7 @@ export default class ParamsStore {
   isLoading = false;
   setIsLoading = d => this.isLoading;
 
-  station = stations.find(stn => stn.sid === "ALSthr");
+  station = stations.find(stn => stn.sid === "LNKthr");
 
   setStation = d => {
     this.hash = d.sid;
