@@ -1,35 +1,57 @@
 import { decorate, observable, action, computed, when, reaction } from "mobx";
 import axios from "axios";
 // import { jStat } from "jStat";
-import { stations } from "../assets/stationList";
+// import stations from "../assets/stationList.json";
 
 import { determineQuantiles, index, arcData, closest } from "../utils/utils";
 import { format, getMonth } from "date-fns/esm";
 
 import createHistory from "history/createBrowserHistory";
+import subDays from "date-fns/subDays";
 const history = createHistory();
 
 export default class ParamsStore {
-  hash = "LNKthr";
+  stns;
+  setStns = d => (this.stns = d);
+  hash;
   maxt;
   mint;
+  station;
   constructor() {
-    const query = history.location.hash.slice(1);
-    const isValidQuery =
-      query !== "" && stations.find(stn => stn.sid === query) !== undefined;
+    when(
+      () => !this.stns,
+      () => {
+        fetch("stationList.json")
+          .then(res => res.json())
+          .then(stns => {
+            this.setStns(stns);
+            this.hash = stns.find(stn => stn.default).sid;
+            const query = history.location.hash.slice(1);
 
-    isValidQuery
-      ? when(
-          () => true,
-          () => {
-            this.hash = query;
-            this.station = stations.find(stn => stn.sid === query);
-          }
-        )
-      : when(() => true, () => history.push({ hash: `#${this.hash}` }));
+            const isValidQuery =
+              query !== "" && stns.find(stn => stn.sid === query) !== undefined;
 
-    when(() => !this.data, () => this.loadObservedData(this.params));
-    reaction(() => this.station.sid, () => this.loadObservedData(this.params));
+            isValidQuery
+              ? when(
+                  () => true,
+                  () => {
+                    this.hash = query;
+                    this.station = stns.find(stn => stn.sid === query);
+                    this.loadObservedData(this.params);
+                  }
+                )
+              : when(
+                  () => true,
+                  () => {
+                    history.push({ hash: `#${this.hash}` });
+                    this.station = stns.find(stn => stn.sid === this.hash);
+                    this.loadObservedData(this.params);
+                  }
+                );
+          });
+      }
+    );
+
     reaction(
       () => this.dateOfInterest,
       () => this.loadObservedData(this.params)
@@ -48,12 +70,17 @@ export default class ParamsStore {
         this.mint = 20;
       }
     );
+
+    // reaction(
+    //   () => this.data,
+    //   () => console.log(this.isSummerOrWinter, this.params)
+    // );
   }
 
   isLoading = false;
   setIsLoading = d => this.isLoading;
 
-  station = stations.find(stn => stn.sid === "LNKthr");
+  // station = this.stns ? this.stns.find(stn => stn.default).sid : null;
 
   setStation = d => {
     this.hash = d.sid;
@@ -63,12 +90,13 @@ export default class ParamsStore {
     this.mint = this.isSummerOrWinter === "summer" ? 65 : 20;
     this.rainfall = 1;
     this.snowfall = 2;
+    this.loadObservedData(this.params);
   };
 
   rainfall = 1;
   snowfall = 2;
 
-  dateOfInterest = new Date();
+  dateOfInterest = subDays(new Date(), 1);
   setDateOfInterest = d => {
     this.dateOfInterest = d;
     this.maxt = this.isSummerOrWinter === "summer" ? 90 : 32;
@@ -106,20 +134,23 @@ export default class ParamsStore {
       name: "avgt",
       interval: [1, 0, 0],
       duration: "mtd",
-      reduce: "mean"
+      reduce: "mean",
+      maxmissing: 1
     },
     {
       name: "avgt",
       interval: [1, 0, 0],
       duration: "std",
       season_start: `${this.season.season_start}`,
-      reduce: "mean"
+      reduce: "mean",
+      maxmissing: 1
     },
     {
       name: "avgt",
       interval: [1, 0, 0],
       duration: "ytd",
-      reduce: "mean"
+      reduce: "mean",
+      maxmissing: 5
     }
   ];
 
@@ -129,20 +160,23 @@ export default class ParamsStore {
       name: "pcpn",
       interval: [1, 0, 0],
       duration: "mtd",
-      reduce: "sum"
+      reduce: "sum",
+      maxmissing: 1
     },
     {
       name: "pcpn",
       interval: [1, 0, 0],
       duration: "std",
       season_start: `${this.season.season_start}`,
-      reduce: "sum"
+      reduce: "sum",
+      maxmissing: 1
     },
     {
       name: "pcpn",
       interval: [1, 0, 0],
       duration: "ytd",
-      reduce: "sum"
+      reduce: "sum",
+      maxmissing: 5
     }
   ];
 
@@ -153,63 +187,72 @@ export default class ParamsStore {
       interval: [1, 0, 0],
       duration: "std",
       season_start: "01-01",
-      reduce: `cnt_ge_80`
+      reduce: `cnt_ge_80`,
+      maxmissing: 1
     },
     {
       name: "maxt",
       interval: [1, 0, 0],
       duration: "std",
       season_start: "01-01",
-      reduce: `cnt_ge_90`
+      reduce: `cnt_ge_90`,
+      maxmissing: 1
     },
     {
       name: "maxt",
       interval: [1, 0, 0],
       duration: "std",
       season_start: "01-01",
-      reduce: `cnt_ge_100`
+      reduce: `cnt_ge_100`,
+      maxmissing: 1
     },
     {
       name: "mint",
       interval: [1, 0, 0],
       duration: "std",
       season_start: "01-01",
-      reduce: `cnt_ge_65`
+      reduce: `cnt_ge_65`,
+      maxmissing: 1
     },
     {
       name: "mint",
       interval: [1, 0, 0],
       duration: "std",
       season_start: "01-01",
-      reduce: `cnt_ge_70`
+      reduce: `cnt_ge_70`,
+      maxmissing: 1
     },
     {
       name: "mint",
       interval: [1, 0, 0],
       duration: "std",
       season_start: "01-01",
-      reduce: `cnt_ge_75`
+      reduce: `cnt_ge_75`,
+      maxmissing: 1
     },
     {
       name: "pcpn",
       interval: [1, 0, 0],
       duration: "std",
       season_start: "01-01",
-      reduce: `cnt_ge_1`
+      reduce: `cnt_ge_1`,
+      maxmissing: 1
     },
     {
       name: "pcpn",
       interval: [1, 0, 0],
       duration: "std",
       season_start: "01-01",
-      reduce: `cnt_ge_2`
+      reduce: `cnt_ge_2`,
+      maxmissing: 1
     },
     {
       name: "pcpn",
       interval: [1, 0, 0],
       duration: "std",
       season_start: "01-01",
-      reduce: `cnt_ge_3`
+      reduce: `cnt_ge_3`,
+      maxmissing: 1
     }
   ];
 
@@ -220,63 +263,72 @@ export default class ParamsStore {
       interval: [1, 0, 0],
       duration: "std",
       season_start: "07-01",
-      reduce: `cnt_le_32`
+      reduce: `cnt_le_32`,
+      maxmissing: 1
     },
     {
       name: "maxt",
       interval: [1, 0, 0],
       duration: "std",
       season_start: "07-01",
-      reduce: `cnt_le_20`
+      reduce: `cnt_le_20`,
+      maxmissing: 1
     },
     {
       name: "maxt",
       interval: [1, 0, 0],
       duration: "std",
       season_start: "07-01",
-      reduce: `cnt_le_15`
+      reduce: `cnt_le_15`,
+      maxmissing: 1
     },
     {
       name: "mint",
       interval: [1, 0, 0],
       duration: "std",
       season_start: "07-01",
-      reduce: `cnt_le_20`
+      reduce: `cnt_le_20`,
+      maxmissing: 1
     },
     {
       name: "mint",
       interval: [1, 0, 0],
       duration: "std",
       season_start: "07-01",
-      reduce: `cnt_le_15`
+      reduce: `cnt_le_15`,
+      maxmissing: 1
     },
     {
       name: "mint",
       interval: [1, 0, 0],
       duration: "std",
       season_start: "07-01",
-      reduce: `cnt_le_10`
+      reduce: `cnt_le_10`,
+      maxmissing: 1
     },
     {
       name: "snow",
       interval: [1, 0, 0],
       duration: "std",
       season_start: "07-01",
-      reduce: `cnt_ge_2`
+      reduce: `cnt_ge_2`,
+      maxmissing: 1
     },
     {
       name: "snow",
       interval: [1, 0, 0],
       duration: "std",
       season_start: "07-01",
-      reduce: `cnt_ge_4`
+      reduce: `cnt_ge_4`,
+      maxmissing: 1
     },
     {
       name: "snow",
       interval: [1, 0, 0],
       duration: "std",
       season_start: "07-01",
-      reduce: `cnt_ge_6`
+      reduce: `cnt_ge_6`,
+      maxmissing: 1
     }
   ];
 
@@ -300,6 +352,7 @@ export default class ParamsStore {
   setData = d => (this.data = d);
 
   loadObservedData = params => {
+    // console.log("loadObservableData called");
     this.setData(undefined);
     this.setIsLoading(true);
     return axios
@@ -553,24 +606,28 @@ export default class ParamsStore {
   get gauge() {
     let results = [];
     if (this.data) {
-      // console.log(this.data);
       Object.keys(this.keys).forEach((elem, i) => {
         let p = {};
         const label = this.keys[elem].label;
         const type = this.keys[elem].type;
         const isSlider = this.keys[elem].isSlider;
         const dates = this.data.map(d => d[0]);
-        const values = this.data.map(
+        let values = this.data.map(
           d => (d[i + 1] === "T" ? 0.0001 : parseFloat(d[i + 1]))
         );
 
+        // values[values.length - 1] = NaN;
+        let isLastYearNaN = isNaN(values.slice(-1));
+        // console.log(values.slice(-1), isLastYearNaN);
+
         let original = dates
           .map((date, i) => {
-            const value = values[i];
-            return value === "M" || isNaN(value) ? null : { date, value };
+            let value = values[i];
+            return isNaN(value) ? null : { date, value };
           })
           .filter(d => d);
 
+        // console.log(original);
         const datesCleaned = original.map(obj => obj.date);
         const valuesCleaned = original.map(obj => obj.value);
         let quantiles = determineQuantiles(valuesCleaned.slice(0, -1));
@@ -593,7 +650,9 @@ export default class ParamsStore {
           mean = quantiles["50"].toFixed(1);
         }
 
-        const active = index(daysAboveThisYear, quantiles);
+        daysAboveThisYear = isLastYearNaN ? "N/A" : daysAboveThisYear;
+
+        const active = isLastYearNaN ? 1 : index(daysAboveThisYear, quantiles);
         const gaugeData = arcData(quantiles, type);
         let sliderStyle;
         if (isSlider)
@@ -647,7 +706,7 @@ export default class ParamsStore {
         };
         results.push(p);
       });
-      console.log(results);
+      // console.log(results);
       return results;
     }
   }
@@ -735,5 +794,7 @@ decorate(ParamsStore, {
   seasonalExtreme: computed,
   dateOfInterest: observable,
   setDateOfInterest: action,
-  month: computed
+  month: computed,
+  stns: observable,
+  setStns: action
 });

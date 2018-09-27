@@ -12,6 +12,8 @@ import DatePicker from "material-ui-pickers/DatePicker";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from "@material-ui/core/IconButton";
 
+import getYear from "date-fns/getYear";
+
 // components
 import MapModal from "./MapModal";
 import Row from "./Row";
@@ -19,6 +21,7 @@ import Row from "./Row";
 const styles = theme => ({
   root: {
     flexGrow: 1,
+    flexDirection: "column",
     padding: theme.spacing.unit * 2
   },
   centered: {
@@ -66,60 +69,72 @@ class App extends Component {
       setDateOfInterest
     } = this.props.appStore.paramsStore;
 
+    const thisYear = getYear(new Date());
+    const selectedYear = getYear(dateOfInterest);
+    const isThisYear = thisYear === selectedYear;
+
     return (
       <Grid container className={classes.root} spacing={32}>
-        <Grid item xs={12} sm={12}>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-around",
-              marginBottom: 32
-            }}
+        <Grid item>
+          <Grid
+            container
+            justify="space-around"
+            alignItems="center"
+            spacing={32}
           >
-            <Typography variant="display1">
-              <div>
-                Viewing Climate Conditions at{" "}
-                <span style={{ color: "#843EA4" }}>{station.name}</span>
-              </div>
-            </Typography>
+            <Grid item>
+              <Typography variant="title">
+                <div>
+                  Viewing Climate Conditions at{" "}
+                  {station ? (
+                    <span style={{ color: "#843EA4" }}>{station.name}</span>
+                  ) : (
+                    <span style={{ color: "#843EA4" }}>...</span>
+                  )}
+                </div>
+              </Typography>
+            </Grid>
 
-            <div className={classes.formControl}>
+            <Grid item>
               <DatePicker
                 style={{ width: "100%" }}
                 label="Date of Interest"
                 value={dateOfInterest}
                 onChange={setDateOfInterest}
-                format="MMMM Do"
+                format={isThisYear ? "MMMM Do" : "MMMM Do YYYY"}
                 disableFuture
                 showTodayButton
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
-                      <IconButton style={{ marginRight: -10 }}>
+                      <IconButton style={{ marginRight: -20 }}>
                         <Icon>date_range</Icon>
                       </IconButton>
                     </InputAdornment>
                   )
                 }}
               />
-            </div>
+            </Grid>
 
-            <Button
-              variant="extendedFab"
-              color="primary"
-              aria-label="map"
-              onClick={this.handleOpen}
-            >
-              <Icon style={{ marginRight: 5 }}>place</Icon>
-              STATIONS
-            </Button>
-          </div>
-
+            <Grid item>
+              <Button
+                variant="extendedFab"
+                color="primary"
+                aria-label="map"
+                onClick={this.handleOpen}
+                size="small"
+              >
+                <Icon style={{ marginRight: 5 }}>place</Icon>
+                STATIONS
+              </Button>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item>
           <Row type="TEMPERATURE" row={avgTemps} />
           <Row type="PRECIPITATION" row={avgPcpns} />
           <Row type="SEASONAL EXTREME" row={seasonalExtreme} />
         </Grid>
-
         <MapModal isOpen={this.state.isOpen} handleClose={this.handleClose} />
       </Grid>
     );
